@@ -40,19 +40,3 @@ def findLCA(root, node1, node2):
             break
         index += 1
     return p1[index-1]
- 
- 
-# Driver program to test above function
-# Let's create the Binary Tree shown in above diagram
-root = BTNode(1)
-root.left = BTNode(2)
-root.right = BTNode(3)
-root.left.left = BTNode(4)
-root.left.right = BTNode(5)
-root.right.left = BTNode(6)
-root.right.right = BTNode(7)
- 
-print "LCA(4, 5) = %d" %(findLCA(root, 4, 5,))
-print "LCA(4, 6) = %d" %(findLCA(root, 4, 6))
-print "LCA(3, 4) = %d" %(findLCA(root,3,4))
-print "LCA(2, 4) = %d" %(findLCA(root,2, 4))
