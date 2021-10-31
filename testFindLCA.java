@@ -1,4 +1,101 @@
-//testing findLCA.java using JUnit 4 test cases
+//testing findLCA.java using JUnit 4 test cases for assignment LCA2
+import static org.junit.Assert.*;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
+@RunWith(JUnit4.class)
+public class testGraph
+{
+    @Test
+    public void testEmptyGraph(){
+        Graph g = new Graph(0);
+        int[] result = new int[0];
+       
+        assertEquals("LCA between 7 and 11 is [] as the nodes don't exist in graph",result,findGraphLCA(7,11,g));
+    }
+
+    @Test
+    public void testMissingNodes(){
+        int[] result = new int[0];
+        Graph g = new Graph(4);
+		g.addEdge(0,2);
+		g.addEdge(0,1);
+
+        //test one missing node
+        assertEquals("one common lca between 2 and 4",result,findGraphLCA(2,4,g));
+
+        //test two missing nodes
+        assertEquals("one common lca between 4 and 5",result,findGraphLCA(4,5,g));
+
+    }
+
+    @Test
+    public void testParentLCA(){
+        Graph g = new Graph(9);
+		g.addEdge(0, 1);
+		g.addEdge(0, 2);
+		g.addEdge(1, 4);
+		g.addEdge(1, 6);
+		g.addEdge(2, 4);
+		g.addEdge(2, 6);
+		g.addEdge(2, 3);
+		g.addEdge(3, 6);
+        g.addEdge(6, 5);
+        g.addEdge(6, 7);
+        g.addEdge(7, 8);
+
+        int[] result = {7};
+
+        //test when one node is the ancestor of the other node
+        assertEquals("one common lca between 7 and 8",result, findGraphLCA(7,8,g));
+
+        //test when one node is the source node and the other is not
+        assertEquals("one common lca between 0 and 7",result, findGraphLCA(0,8,g));
+
+    }
+
+    @Test
+    public void testLcaButNotParent(){
+        int[] result = {0};
+        
+        Graph g = new Graph(4);
+		g.addEdge(0,2);
+		g.addEdge(0,1);
+		g.addEdge(2,3);
+
+        //test one parent of the other
+        assertEquals("one common lca between 3 and 1",result, findGraphLCA(1,3,g));
+
+    }
+		
+    @Test 
+    public void testDAG() {
+    	int[] result = {6};
+        int[] result2 = {1,2};
+    	
+        Graph g = new Graph(9);
+        g.addEdge(0, 1);
+		g.addEdge(0, 2);
+		g.addEdge(1, 4);
+		g.addEdge(1, 6);
+		g.addEdge(2, 4);
+		g.addEdge(2, 6);
+		g.addEdge(2, 3);
+		g.addEdge(3, 6);
+        g.addEdge(6, 5);
+        g.addEdge(6, 7);
+        g.addEdge(7, 8);
+
+        //one common lca between two nodes
+        assertEquals("one common lca between 5 and 7",result, findGraphLCA(5,7,g));
+
+        //two common lcas between two nodes
+        assertEquals("two common lcas between 4 and 7",result2, findGraphLCA(4,7,g));
+    }
+}
+
+//testing findLCA.java using JUnit 4 test cases for assignment LCA 
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
